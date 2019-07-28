@@ -1,0 +1,13 @@
+import groovy.xml.XmlUtil
+def path = "E:/web.xml"
+def file = new File(path)
+
+def xml = new XmlParser().parseText(file.text)
+//log.info xml
+xml.appSettings.add[2].replaceNode{
+	add(key:"ClientValidationEnabled", value:"false")
+}
+def nodeAsText = XmlUtil.serialize(xml)
+log.info nodeAsText
+file.write(nodeAsText)
+println file.text
